@@ -79,7 +79,14 @@
 
     <ItemGroup>
         <Compile Include="App.cs" />
+        <Compile Include="Commands\ShowWindowCommand.cs" />
+        <Compile Include="Prism\PrismExternalApplication.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="ViewModels" />
+      <Folder Include="Views" />
     </ItemGroup>
 
     <!-- Extra Target Configuration -->

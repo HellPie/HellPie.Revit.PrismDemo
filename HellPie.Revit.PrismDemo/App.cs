@@ -1,18 +1,26 @@
+using System;
 using System.Diagnostics.CodeAnalysis;
 using Autodesk.Revit.UI;
+using HellPie.Revit.PrismDemo.Prism;
+using Prism.Ioc;
 
 namespace HellPie.Revit.PrismDemo {
     [SuppressMessage("ReSharper", "UnusedType.Global")]
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    internal class App : IExternalApplication {
+    internal class App : PrismExternalApplication {
         /// <inheritdoc />
-        public Result OnStartup(UIControlledApplication application) {
+        public override Result OnStartup(UIControlledApplication application) {
+            Result result = base.OnStartup(application);
+            if(result != Result.Succeeded) {
+                return result;
+            }
+
             return Result.Succeeded;
         }
 
         /// <inheritdoc />
-        public Result OnShutdown(UIControlledApplication application) {
-            return Result.Succeeded;
+        protected override void RegisterTypes(IContainerRegistry containerRegistry) {
+            // Not implemented yet
         }
     }
 }
