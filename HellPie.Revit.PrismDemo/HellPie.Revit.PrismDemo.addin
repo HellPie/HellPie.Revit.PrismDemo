@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+	<AddIn Type="Application">
+        <Name>Revit AddIns by HellPie - Prism Demo for Revit</Name>
+        <Description>Demo demonstrating the usage of Prism and DryIoC in a Revit AddIn.</Description>
+        <Assembly>HellPie.Revit.PrismDemo/HellPie.Revit.PrismDemo.dll</Assembly>
+        <FullClassName>HellPie.Revit.PrismDemo.App</FullClassName>
+        <ClientId>87B64866-6EE6-4022-BBBA-D7A32165DCB9</ClientId>
+        <VendorId>dev.hellpie</VendorId>
+        <VendorDescription>HellPie, https://hellpie.dev</VendorDescription>
+	</AddIn>
+</RevitAddIns>

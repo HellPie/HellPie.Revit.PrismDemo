@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+
+    <!-- Global Project Configuration -->
+    <PropertyGroup>
+        <ModuleName>PrismDemo</ModuleName>
+        <ModuleSet>HellPie.Revit</ModuleSet>
+        <RevitVersion>2019</RevitVersion>
+    </PropertyGroup>
+
+    <!-- Project Configuration -->
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
+        <ProjectGuid>{87B64866-6EE6-4022-BBBA-D7A32165DCB9}</ProjectGuid>
+        <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+        <OutputType>Library</OutputType>
+        <AppDesignerFolder>Properties</AppDesignerFolder>
+        <RootNamespace>$(ModuleSet).$(ModuleName)</RootNamespace>
+        <AssemblyName>$(ModuleSet).$(ModuleName)</AssemblyName>
+        <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+        <LangVersion>latest</LangVersion>
+        <FileAlignment>512</FileAlignment>
+        <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+    </PropertyGroup>
+
+    <!-- Global MSBuild Configuration -->
+    <PropertyGroup>
+        <OutputPath>bin\$(Configuration)</OutputPath>
+        <PlatformTarget>$(Platform)</PlatformTarget>
+        <WarningLevel>4</WarningLevel>
+        <CodeAnalysisRuleSet Condition="Exists('$(ProjectName).ruleset')">$(ProjectName).ruleset</CodeAnalysisRuleSet>
+        <StartAction>Program</StartAction>
+    </PropertyGroup>
+
+    <!-- Debug MSBuild Configuration -->
+    <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+        <DebugType>full</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <StartProgram>$(ProgramW6432)\Autodesk\Revit $(RevitVersion)\Revit.exe</StartProgram>
+    </PropertyGroup>
+
+    <!-- Release MSBuild Configuration -->
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+        <Optimize>true</Optimize>
+        <DebugType>pdbonly</DebugType>
+        <DefineConstants>RELEASE;TRACE</DefineConstants>
+    </PropertyGroup>
+
+    <!-- NuGet Dependencies -->
+    <ItemGroup>
+        <PackageReference Include="Autodesk.Revit.SDK" Version="2020.2.1" />
+        <PackageReference Include="Prism.DryIoc" Version="7.2.0.1422" />
+        <PackageReference Include="Stain.Rainbow" Version="1.2.0" />
+    </ItemGroup>
+
+    <!-- Global Assemblies Dependencies -->
+    <ItemGroup>
+        <!-- Core -->
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Data" />
+        <!-- Xml And XAML -->
+        <Reference Include="System.Xml" />
+        <Reference Include="System.Xml.Linq" />
+        <Reference Include="System.Xaml" />
+        <!-- WPF Framework -->
+        <Reference Include="PresentationCore" />
+        <Reference Include="PresentationFramework" />
+        <Reference Include="WindowsBase" />
+    </ItemGroup>
+
+    <!-- Revit AddIn File -->
+    <ItemGroup>
+        <Content Include="$(ProjectName).addin" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Include="App.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
+    </ItemGroup>
+
+    <!-- Extra Target Configuration -->
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+    <!-- Post Build Events -->
+    <Target Name="AfterBuild">
+        <!-- Clean previous builds -->
+        <CallTarget Targets="AfterClean" />
+        <!-- Prepare for execution when in debug mode -->
+        <CallTarget Targets="RunInRevit" Condition="'$(Configuration)' == 'Debug'" />
+    </Target>
+
+    <!-- Cleanup Events -->
+    <Target Name="AfterClean">
+        <Delete Files="$(APPDATA)\Autodesk\REVIT\Addins\$(RevitVersion)\$(ProjectName).addin" />
+        <RemoveDir Directories="$(APPDATA)\Autodesk\REVIT\Addins\$(RevitVersion)\$(ProjectName)" />
+    </Target>
+
+    <!-- Target Execution in Revit -->
+    <Target Name="RunInRevit">
+        <!-- Copy global files -->
+        <Copy SourceFiles="$(ProjectDir)$(ProjectName).addin" DestinationFolder="$(APPDATA)\Autodesk\REVIT\Addins\$(RevitVersion)" />
+        <MakeDir Directories="$(APPDATA)\Autodesk\REVIT\Addins\$(RevitVersion)\$(ProjectName)" />
+        <MakeDir Directories="$(APPDATA)\Autodesk\REVIT\Addins\$(RevitVersion)\$(ProjectName)\Resources" Condition="Exists('$(ProjectDir)Resources')" />
+        <!-- Select files to be copied -->
+        <ItemGroup>
+            <Libraries Include="$(ProjectDir)$(OutputPath)*.dll" />
+            <Libraries Remove="$(ProjectDir)$(OutputPath)RevitAPI*.dll" />
+            <Libraries Remove="$(ProjectDir)$(OutputPath)AdWindows*.dll" />
+            <ResourceFiles Include="$(ProjectDir)Resources\*.*" Condition="Exists('$(ProjectDir)Resources')" />
+        </ItemGroup>
+        <!-- Copy files to Revit Addins directory -->
+        <Copy SourceFiles="@(Libraries)" DestinationFolder="$(APPDATA)\Autodesk\REVIT\Addins\$(RevitVersion)\$(ProjectName)" />
+        <Copy SourceFiles="@(ResourceFiles)" DestinationFolder="$(APPDATA)\Autodesk\REVIT\Addins\$(RevitVersion)\$(ProjectName)\Resources" />
+    </Target>
+</Project>
