@@ -17,10 +17,16 @@ using Prism.Services.Dialogs;
 
 namespace HellPie.Revit.PrismDemo.Prism {
     public abstract class PrismExternalApplication : IExternalApplication {
+        internal static PrismExternalApplication Instance { get; private set; }
+
         private readonly IContainerExtension _containerExtension = CreateContainerExtension();
         private readonly IModuleCatalog _moduleCatalog = new ModuleCatalog();
 
         public IContainerProvider Container => _containerExtension;
+
+        public PrismExternalApplication() {
+            Instance = this;
+        }
 
         /// <inheritdoc />
         public virtual Result OnStartup(UIControlledApplication application) {
