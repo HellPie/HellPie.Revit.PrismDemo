@@ -6,7 +6,7 @@
     <PropertyGroup>
         <ModuleName>PrismDemo</ModuleName>
         <ModuleSet>HellPie.Revit</ModuleSet>
-        <RevitVersion>2019</RevitVersion>
+        <RevitVersion>2020</RevitVersion>
     </PropertyGroup>
 
     <!-- Project Configuration -->
@@ -81,12 +81,16 @@
         <Compile Include="App.cs" />
         <Compile Include="Commands\ShowWindowCommand.cs" />
         <Compile Include="Prism\PrismExternalApplication.cs" />
+        <Compile Include="Prism\PrismUtils.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="ViewModels\SinglePrismWindowViewModel.cs" />
+        <Compile Include="Views\SinglePrismWindow.xaml.cs">
+          <DependentUpon>SinglePrismWindow.xaml</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="ViewModels" />
-      <Folder Include="Views" />
+      <Page Include="Views\SinglePrismWindow.xaml" />
     </ItemGroup>
 
     <!-- Extra Target Configuration -->
