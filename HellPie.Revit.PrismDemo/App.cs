@@ -28,7 +28,9 @@ namespace HellPie.Revit.PrismDemo {
                 Name = "Prism Demo",
                 Panels = new [] {
                     new Panel {
-                        Title = "All Commands",
+                        Name = "All Commands",
+                        Enabled = true,
+                        Visible = true,
                         Items = new BaseItem[] {
                             new Button {
                                 Assembly = assemblyLocation,

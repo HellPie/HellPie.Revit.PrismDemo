@@ -73,7 +73,7 @@ namespace HellPie.Revit.PrismDemo.Prism {
 
         /// <inheritdoc />
         public virtual Result OnShutdown(UIControlledApplication application) {
-            throw new System.NotImplementedException();
+            return Result.Succeeded;
         }
 
         /// <summary>
