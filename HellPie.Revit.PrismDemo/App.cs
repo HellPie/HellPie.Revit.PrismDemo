@@ -1,8 +1,13 @@
-using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using Autodesk.Revit.UI;
+using HellPie.Revit.PrismDemo.Commands;
 using HellPie.Revit.PrismDemo.Prism;
 using Prism.Ioc;
+using Stain.Rainbow;
+using Stain.Rainbow.Data;
+using Stain.Rainbow.Data.Internal;
+using Tab = Stain.Rainbow.Data.Tab;
 
 namespace HellPie.Revit.PrismDemo {
     [SuppressMessage("ReSharper", "UnusedType.Global")]
@@ -14,6 +19,30 @@ namespace HellPie.Revit.PrismDemo {
             if(result != Result.Succeeded) {
                 return result;
             }
+
+            string assemblyLocation = Assembly.GetExecutingAssembly().Location;
+            string showWindowCommandClass = typeof(ShowWindowCommand).FullName;
+
+            new RainbowBuilder(application).Build(new Tab {
+                Name = "Prism Demo",
+                Panels = new [] {
+                    new Panel {
+                        Title = "All Commands",
+                        Items = new BaseItem[] {
+                            new Button {
+                                Assembly = assemblyLocation,
+                                Class = showWindowCommandClass,
+                                AvailabilityClass = showWindowCommandClass,
+                                Name = showWindowCommandClass,
+                                Text = "Show Window",
+                                Description = "Shows a single window using Prism for MVVM management.",
+                                Enabled = true,
+                                Visible = true,
+                            },
+                        },
+                    },
+                },
+            });
 
             return Result.Succeeded;
         }
