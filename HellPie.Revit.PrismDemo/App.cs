@@ -3,6 +3,7 @@ using System.Reflection;
 using Autodesk.Revit.UI;
 using HellPie.Revit.PrismDemo.Commands;
 using HellPie.Revit.PrismDemo.Prism;
+using HellPie.Revit.PrismDemo.Views;
 using Prism.Ioc;
 using Stain.Rainbow;
 using Stain.Rainbow.Data;
@@ -49,7 +50,7 @@ namespace HellPie.Revit.PrismDemo {
 
         /// <inheritdoc />
         protected override void RegisterTypes(IContainerRegistry containerRegistry) {
-            // Not implemented yet
+            containerRegistry.Register<object, SinglePrismWindow>(typeof(SinglePrismWindow).FullName);
         }
     }
 }

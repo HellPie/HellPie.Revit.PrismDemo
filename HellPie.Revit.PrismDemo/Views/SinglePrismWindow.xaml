@@ -1,0 +1,38 @@
+﻿<Window x:Class="HellPie.Revit.PrismDemo.Views.SinglePrismWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:vm="clr-namespace:HellPie.Revit.PrismDemo.ViewModels"
+        mc:Ignorable="d"
+        Title="Prism Window Demo"
+        Height="400"
+        Width="550"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <DockPanel>
+            <Label DockPanel.Dock="Left" Content="Message:" />
+            <TextBox DockPanel.Dock="Left" Text="{Binding (vm:SinglePrismWindowViewModel.HelloMessage)}" />
+        </DockPanel>
+
+        <DockPanel Grid.Row="1">
+            <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
+                <Button DockPanel.Dock="Left" Content="Increment" Command="{Binding (vm:SinglePrismWindowViewModel.IncrementCounter)}"/>
+                <Button DockPanel.Dock="Right" Content="Decrement" Command="{Binding (vm:SinglePrismWindowViewModel.DecrementCounter)}"/>
+            </DockPanel>
+
+            <DockPanel DockPanel.Dock="Top">
+                <Label DockPanel.Dock="Left" Content="Counter:" />
+                <Label DockPanel.Dock="Left" Content="{Binding (vm:SinglePrismWindowViewModel.Counter)}" />
+            </DockPanel>
+        </DockPanel>
+    </Grid>
+</Window>
