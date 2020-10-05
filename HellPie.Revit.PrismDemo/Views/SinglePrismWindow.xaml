@@ -10,8 +10,8 @@
         Height="400"
         Width="550"
         ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen"
-        prism:ViewModelLocator.AutoWireViewModel="True">
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        d:DataContext="{vm:SinglePrismWindowViewModel}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -20,18 +20,18 @@
 
         <DockPanel>
             <Label DockPanel.Dock="Left" Content="Message:" />
-            <TextBox DockPanel.Dock="Left" Text="{Binding (vm:SinglePrismWindowViewModel.HelloMessage)}" />
+            <TextBox DockPanel.Dock="Left" Text="{Binding HelloMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </DockPanel>
 
-        <DockPanel Grid.Row="1">
+        <DockPanel Grid.Row="1" LastChildFill="False">
             <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
-                <Button DockPanel.Dock="Left" Content="Increment" Command="{Binding (vm:SinglePrismWindowViewModel.IncrementCounter)}"/>
-                <Button DockPanel.Dock="Right" Content="Decrement" Command="{Binding (vm:SinglePrismWindowViewModel.DecrementCounter)}"/>
+                <Button DockPanel.Dock="Left" Content="Increment" Command="{Binding IncrementCounter}"/>
+                <Button DockPanel.Dock="Right" Content="Decrement" Command="{Binding DecrementCounter}" />
             </DockPanel>
 
             <DockPanel DockPanel.Dock="Top">
                 <Label DockPanel.Dock="Left" Content="Counter:" />
-                <Label DockPanel.Dock="Left" Content="{Binding (vm:SinglePrismWindowViewModel.Counter)}" />
+                <Label DockPanel.Dock="Left" Content="{Binding Counter}" />
             </DockPanel>
         </DockPanel>
     </Grid>
