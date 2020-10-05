@@ -3,7 +3,6 @@ using System.Reflection;
 using Autodesk.Revit.UI;
 using HellPie.Revit.PrismDemo.Commands;
 using HellPie.Revit.PrismDemo.Prism;
-using HellPie.Revit.PrismDemo.Views;
 using Prism.Ioc;
 using Stain.Rainbow;
 using Stain.Rainbow.Data;
@@ -22,7 +21,8 @@ namespace HellPie.Revit.PrismDemo {
             }
 
             string assemblyLocation = Assembly.GetExecutingAssembly().Location;
-            string showWindowCommandClass = typeof(ShowWindowCommand).FullName;
+            string showWindowCommand = typeof(ShowWindowCommand).FullName;
+            string showShellCommand = typeof(ShowShellCommand).FullName;
 
             new RainbowBuilder(application).Build(new Tab {
                 Name = "Prism Demo",
@@ -34,11 +34,21 @@ namespace HellPie.Revit.PrismDemo {
                         Items = new BaseItem[] {
                             new Button {
                                 Assembly = assemblyLocation,
-                                Class = showWindowCommandClass,
-                                AvailabilityClass = showWindowCommandClass,
-                                Name = showWindowCommandClass,
+                                Class = showWindowCommand,
+                                AvailabilityClass = showWindowCommand,
+                                Name = showWindowCommand,
                                 Text = "Show Window",
                                 Description = "Shows a single window using Prism for MVVM management.",
+                                Enabled = true,
+                                Visible = true,
+                            },
+                            new Button {
+                                Assembly = assemblyLocation,
+                                Class = showShellCommand,
+                                AvailabilityClass = showShellCommand,
+                                Name = showShellCommand,
+                                Text = "Show Shell",
+                                Description = "Shows a window using Prism for MVVM management with custom user controls also using Prism.",
                                 Enabled = true,
                                 Visible = true,
                             },
@@ -52,7 +62,7 @@ namespace HellPie.Revit.PrismDemo {
 
         /// <inheritdoc />
         protected override void RegisterTypes(IContainerRegistry containerRegistry) {
-            containerRegistry.Register<object, SinglePrismWindow>(typeof(SinglePrismWindow).FullName);
+            //
         }
     }
 }

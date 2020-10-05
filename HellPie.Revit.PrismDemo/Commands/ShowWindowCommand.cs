@@ -11,7 +11,7 @@ namespace HellPie.Revit.PrismDemo.Commands {
     public class ShowWindowCommand : IExternalCommand, IExternalCommandAvailability {
         /// <inheritdoc />
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements) {
-            SinglePrismWindow window = PrismUtils.GetContainer().Resolve<SinglePrismWindow>();
+            SinglePrismWindow window = new SinglePrismWindow();
             RegionManager.SetRegionManager(window, PrismUtils.GetContainer().Resolve<IRegionManager>());
             RegionManager.UpdateRegions();
             window.ShowDialog();
