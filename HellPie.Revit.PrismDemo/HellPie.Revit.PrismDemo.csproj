@@ -79,17 +79,28 @@
 
     <ItemGroup>
         <Compile Include="App.cs" />
+        <Compile Include="Commands\ShowShellCommand.cs" />
         <Compile Include="Commands\ShowWindowCommand.cs" />
         <Compile Include="Prism\PrismExternalApplication.cs" />
         <Compile Include="Prism\PrismUtils.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="ViewModels\Common\PrismTextBoxViewModel.cs" />
+        <Compile Include="ViewModels\ShellPrismWindowViewModel.cs" />
         <Compile Include="ViewModels\SinglePrismWindowViewModel.cs" />
+        <Compile Include="Views\Common\PrismTextBox.xaml.cs">
+          <DependentUpon>PrismTextBox.xaml</DependentUpon>
+        </Compile>
+        <Compile Include="Views\ShellPrismWindow.xaml.cs">
+          <DependentUpon>ShellPrismWindow.xaml</DependentUpon>
+        </Compile>
         <Compile Include="Views\SinglePrismWindow.xaml.cs">
           <DependentUpon>SinglePrismWindow.xaml</DependentUpon>
         </Compile>
     </ItemGroup>
 
     <ItemGroup>
+      <Page Include="Views\Common\PrismTextBox.xaml" />
+      <Page Include="Views\ShellPrismWindow.xaml" />
       <Page Include="Views\SinglePrismWindow.xaml" />
     </ItemGroup>
 
