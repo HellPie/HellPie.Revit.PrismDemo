@@ -13,7 +13,7 @@
         ResizeMode="NoResize"
         Topmost="True"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        d:DataContext="{vm:ShellPrismWindowViewModel}">
+        d:DataContext="{d:DesignInstance vm:ShellPrismWindowViewModel, IsDesignTimeCreatable=False}">
     <Grid>
         <ctrl:PrismTextBox />
     </Grid>

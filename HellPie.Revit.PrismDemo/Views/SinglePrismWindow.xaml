@@ -11,7 +11,7 @@
         Width="550"
         ResizeMode="NoResize"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        d:DataContext="{vm:SinglePrismWindowViewModel}">
+        d:DataContext="{d:DesignInstance vm:SinglePrismWindowViewModel, IsDesignTimeCreatable=True}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
