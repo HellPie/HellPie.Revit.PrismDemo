@@ -9,7 +9,7 @@ namespace HellPie.Revit.PrismDemo.Commands {
     public class ShowShellCommand : IExternalCommand, IExternalCommandAvailability {
         /// <inheritdoc />
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements) {
-            PrismUtils.CreateWindow<ShellPrismWindow>().ShowDialog();
+            PrismUtils.CreateWindow<ShellPrismWindow>().Show();
             return Result.Succeeded;
         }
 

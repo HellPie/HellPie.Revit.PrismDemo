@@ -1,8 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using Autodesk.Revit.DB.Events;
 using Autodesk.Revit.UI;
 using HellPie.Revit.PrismDemo.Commands;
 using HellPie.Revit.PrismDemo.Prism;
+using HellPie.Revit.PrismDemo.Services;
 using Prism.Ioc;
 using Stain.Rainbow;
 using Stain.Rainbow.Data;
@@ -19,6 +21,9 @@ namespace HellPie.Revit.PrismDemo {
             if(result != Result.Succeeded) {
                 return result;
             }
+
+            application.ControlledApplication.DocumentOpened += OnDocumentOpened;
+            application.ControlledApplication.DocumentClosed += OnDocumentClosed;
 
             string assemblyLocation = Assembly.GetExecutingAssembly().Location;
             string showWindowCommand = typeof(ShowWindowCommand).FullName;
@@ -62,7 +67,17 @@ namespace HellPie.Revit.PrismDemo {
 
         /// <inheritdoc />
         protected override void RegisterTypes(IContainerRegistry containerRegistry) {
-            //
+            containerRegistry.RegisterSingleton<IPrismDemoService, PrismDemoService>();
+        }
+
+        private void OnDocumentOpened(object sender, DocumentOpenedEventArgs e) {
+            IPrismDemoService service = Container.Resolve<IPrismDemoService>();
+            service.SetDocumentTitle(e.Document.Title);
+        }
+
+        private void OnDocumentClosed(object sender, DocumentClosedEventArgs e) {
+            IPrismDemoService service = Container.Resolve<IPrismDemoService>();
+            service.SetDocumentTitle(null);
         }
     }
 }

@@ -84,6 +84,9 @@
         <Compile Include="Prism\PrismExternalApplication.cs" />
         <Compile Include="Prism\PrismUtils.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Services\Args\DocumentTitleChangedEventArgs.cs" />
+        <Compile Include="Services\IPrismDemoService.cs" />
+        <Compile Include="Services\PrismDemoService.cs" />
         <Compile Include="ViewModels\Common\PrismTextBoxViewModel.cs" />
         <Compile Include="ViewModels\ShellPrismWindowViewModel.cs" />
         <Compile Include="ViewModels\SinglePrismWindowViewModel.cs" />
